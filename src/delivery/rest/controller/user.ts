@@ -23,6 +23,7 @@ class CreateUserController {
         const ucRes = await usecase.createUser(ucReq)
 
         new SuccessResponse().success(res, ucRes)
+    
     }
 }
 

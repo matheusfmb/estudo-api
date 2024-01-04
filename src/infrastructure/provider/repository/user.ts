@@ -4,7 +4,7 @@ import { createUser } from "../../internal/database/postgresql/user"
 
 
 class CreateUserUseCaseRepository implements CreateUserCaseRepositoryInterface {
-    async createUser(e: UserEntity): Promise<UserEntity> {
+    async createUser(e: UserEntity): Promise<UserEntity | null> {
         return await createUser(e)
     }
 }

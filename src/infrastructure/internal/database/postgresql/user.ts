@@ -4,24 +4,27 @@ import { toUserModel, toUserEntity } from "./transformer/user"
 import { Connection } from "./connection"
 import { UserModel } from "./model/user"
 
-async function createUser(e: UserEntity): Promise<UserEntity> {
-    const model = toUserModel(e)
+async function createUser(e: UserEntity): Promise<UserEntity | null> {
+    const userModel = toUserModel(e)
     const repository = await Connection.getRepository(UserModel)
-
-    const modelI = await repository.save(model)
+    const modelI = await repository.save(userModel)
 
     return toUserEntity(modelI)
 }
 
-async function findUserByEmail(email:string): Promise<UserEntity | null>{
+async function checkIfUserExistsByEmail(email:string): Promise<Boolean>{
     const repository = await Connection.getRepository(UserModel)
     const userModel = await repository.findOne({where: {email: email}});
-    return toUserEntity(userModel)
+    if (userModel){
+        return true
+    }else{
+        return false
+    }
 }
 
 export {
     createUser,
-    findUserByEmail
+    checkIfUserExistsByEmail
 }
 
 

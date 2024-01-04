@@ -32,3 +32,4 @@ export {
     CreateUserUseCaseRequest,
     CreateUserUseCaseResponse
 }
+
