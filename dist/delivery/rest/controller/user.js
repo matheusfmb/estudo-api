@@ -8,9 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-(function () {
-    return __awaiter(this, void 0, void 0, function* () {
-        const { Cmd } = require('./cmd');
-        new Cmd().main();
-    });
-})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.testeController = void 0;
+const response_1 = require("../response/response");
+class testeController {
+    teste(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            new response_1.SuccessResponse().success(res, "Teste");
+        });
+    }
+}
+exports.testeController = testeController;
