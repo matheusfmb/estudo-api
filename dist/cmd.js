@@ -9,8 +9,9 @@ class Cmd {
     main() {
         this.initDev();
     }
+    //NÃO FICOU CLARO.
     initDev() {
-        process.env['DATABASE_APP_POSTGRESQL_URI'] = 'a definir';
+        process.env['DATABASE_APP_POSTGRESQL_URI'] = '';
         new cmd_1.CmdRest().server();
     }
 }

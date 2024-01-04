@@ -1,5 +1,6 @@
 import express from 'express'
 import http from 'http'
+import dotenv, { DotenvConfigOptions } from 'dotenv'
 import bodyParser from 'body-parser'
 import { PORT } from "../config/config"
 import { Router } from "../router"
@@ -11,6 +12,7 @@ class CmdRest {
         this.app = express()
         this.middleware()
         this.router()
+
     }
 
     private router() {
@@ -19,6 +21,7 @@ class CmdRest {
 
     private middleware() {
         this.app.use(bodyParser.json())
+        this.app.use(bodyParser.urlencoded({ extended: false }))
         this.app.use((req,res,next)=>{
             console.log(`Request Type: ${req.method}`);
             console.log(`Content Type: ${req.headers["content-type"]}`)

@@ -7,11 +7,12 @@ class Cmd {
         this.initDev()
     }
     
+    //NÃO FICOU CLARO.
     initDev(): void {
-        process.env['DATABASE_APP_POSTGRESQL_URI'] = 'a definir'
+        process.env['DATABASE_APP_POSTGRESQL_URI'] = ''
         new CmdRest().server()
     }
-    }
+}
 
 export {
     Cmd
