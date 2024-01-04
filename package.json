@@ -24,6 +24,8 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
-    "@types/pg-promise": "^5.4.3"
+    "@types/pg": "^8.10.9",
+    "@types/pg-promise": "^5.4.3",
+    "@types/uuid": "^9.0.7"
   }
 }
