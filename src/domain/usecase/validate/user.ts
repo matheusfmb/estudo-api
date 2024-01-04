@@ -1,9 +1,9 @@
 import { CreateUserUseCaseRequest } from "../ucio/user"
 
-interface CreateAppUseCaseValidateInterface {
-    createApp(req: CreateUserUseCaseRequest): Promise<string | null>
+interface CreateUserUseCaseValidateInterface {
+    createUser(req: CreateUserUseCaseRequest): Promise<string | null>
 }
 
 export {
-    CreateAppUseCaseValidateInterface
+    CreateUserUseCaseValidateInterface
 }

@@ -1,13 +1,14 @@
 import express from 'express'
 import { Router } from 'express'
-import { testeController } from '../controller/user'
+import { CreateUserController } from '../controller/user'
 
 class UserRouter {
     private router : Router
 
     constructor(){
         this.router = Router()
-        this.router.get('/teste', new testeController().teste)
+        this.router.get('/teste', new CreateUserController().teste)
+        this.router.post('/createUser', new CreateUserController().createUser)
     }
 
 

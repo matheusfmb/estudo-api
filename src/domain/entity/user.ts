@@ -9,9 +9,8 @@ class UserEntity {
     public updatedAt:Date
     public isActive: number
     public isDeleted: number
-    public payload: any
 
-    constructor (user_id:string, firstName:string, lastName:string, email:string, passowrd:string, age:number, createdAt:Date, updatedAt:Date,isActive:number,isDeleted:number, paylod:any){
+    constructor (user_id:string, firstName:string, lastName:string, email:string, passowrd:string, age:number, createdAt:Date, updatedAt:Date,isActive:number,isDeleted:number){
         this.user_id = user_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,7 +21,6 @@ class UserEntity {
         this.updatedAt = updatedAt;
         this.isActive = isActive;
         this.isDeleted = isDeleted;
-        this.payload = paylod;
     }
 }
 
@@ -37,9 +35,8 @@ class UserResponseEntity {
     public updatedAt:Date
     public isActive: number
     public isDeleted: number
-    public payload: any
 
-    constructor (user_id:string, firstName:string, lastName:string, email:string, passowrd:string, age:number, createdAt:Date, updatedAt:Date,isActive:number,isDeleted:number,payload:any){
+    constructor (user_id:string, firstName:string, lastName:string, email:string, passowrd:string, age:number, createdAt:Date, updatedAt:Date,isActive:number,isDeleted:number){
         this.user_id = user_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,7 +47,6 @@ class UserResponseEntity {
         this.updatedAt = updatedAt;
         this.isActive = isActive;
         this.isDeleted = isDeleted;
-        this.payload = payload;
     }
 
 }

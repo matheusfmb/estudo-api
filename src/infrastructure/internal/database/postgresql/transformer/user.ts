@@ -1,4 +1,4 @@
-import { UserEntity } from "../../../../domain/entity/user"
+import { UserEntity } from "../../../../../domain/entity/user"
 import { UserModel } from "../model/user"
 
 function toUserModel(e: UserEntity): UserModel {
@@ -12,8 +12,7 @@ function toUserModel(e: UserEntity): UserModel {
         e.createdAt,
         e.updatedAt,
         e.isActive,
-        e.isDeleted,
-        e.payload,
+        e.isDeleted
     )
 }
 
@@ -28,7 +27,11 @@ function toUserEntity(m: UserModel): UserEntity {
         m.createdAt,
         m.updatedAt,
         m.isActive,
-        m.isDeleted,
-        m.payload,
+        m.isDeleted
     )
+}
+
+export {
+    toUserEntity,
+    toUserModel
 }

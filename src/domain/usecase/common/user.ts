@@ -1,7 +1,7 @@
-interface CreateAppUseCaseCommonInterface {
+interface CreateUserUseCaseCommonInterface {
     generateUUID(): string
 }
 
 export {
-    CreateAppUseCaseCommonInterface
+    CreateUserUseCaseCommonInterface
 }

@@ -32,10 +32,8 @@ class UserModel {
     @Column({ name: 'is_deleted', type: 'smallint', nullable: false })
     public isDeleted: number
 
-    @Column({ name: 'payload', type: 'jsonb', nullable: true })
-    public payload: any
 
-    constructor (user_id:string, firstName:string, lastName:string, email:string, password:string, age:number, createdAt:Date, updateAt:Date,isActive:number,isDeleted:number,payload:any){
+    constructor (user_id:string, firstName:string, lastName:string, email:string, password:string, age:number, createdAt:Date, updateAt:Date,isActive:number,isDeleted:number){
         this.user_id = user_id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,7 +44,6 @@ class UserModel {
         this.updatedAt = updateAt;
         this.isActive = isActive;
         this.isDeleted = isDeleted;
-        this.payload = payload;
     }
 }
 
