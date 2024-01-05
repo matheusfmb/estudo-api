@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { SuccessResponse } from '../response/response'
-import { CreateUserUseCaseRequest } from '../../../domain/usecase/ucio/user'
+import { CreateUserUseCaseRequest, DeleteUserUseCaseRequest, GetUserUseCaseRequest } from '../../../domain/usecase/ucio/user'
 import { CreateUserUseCaseCommon } from '../../../infrastructure/provider/common/user'
-import { CreateUserUseCaseValidate } from '../../../infrastructure/provider/validate/user'
-import { CreateUserUseCaseRepository } from '../../../infrastructure/provider/repository/user'
-import { CreateUserUseCase } from '../../../domain/usecase/user'
+import { CreateUserUseCaseValidate, DeleteUserUseCaseValidate, GetUserUseCaseValidate } from '../../../infrastructure/provider/validate/user'
+import { CreateUserUseCaseRepository, DeleteUserUseCaseRepository, GetUserUseCaseRepository } from '../../../infrastructure/provider/repository/user'
+import { CreateUserUseCase, DeleteUserUseCase, GetUserUseCase } from '../../../domain/usecase/user'
 
 class CreateUserController {
     async teste(req: Request, res:Response): Promise<void> {
@@ -27,7 +27,37 @@ class CreateUserController {
     }
 }
 
+class GetUserController {
+    async getUser(req: Request, res: Response): Promise<void>{
+        const { user_id } = req.body
+
+        const ucReq = new GetUserUseCaseRequest(user_id)
+        const validate = new GetUserUseCaseValidate()
+        const repository = new GetUserUseCaseRepository() 
+        const usecase = new GetUserUseCase(validate,repository)
+        const ucRes = await usecase.getUser(ucReq)
+
+        new SuccessResponse().success(res,ucRes)
+    }
+
+}
+
+class DeleteUserController {
+    async deleteUser(req: Request, res: Response):Promise<void>{
+        const { user_id } = req.body
+        const ucReq = new DeleteUserUseCaseRequest(user_id)
+        const validate = new DeleteUserUseCaseValidate()
+        const repository = new DeleteUserUseCaseRepository()
+        const usecase = new DeleteUserUseCase(repository,validate)
+        const ucRes = await usecase.deleteUser(ucReq)
+
+        new SuccessResponse().success(res,ucRes)
+    }
+}
+
 
 export {
-    CreateUserController
+    CreateUserController,
+    GetUserController,
+    DeleteUserController 
 }

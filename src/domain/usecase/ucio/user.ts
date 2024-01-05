@@ -17,7 +17,6 @@ class CreateUserUseCaseRequest {
     }
         
 }
-
 class CreateUserUseCaseResponse {
     public app: UserEntity | null
     public error: ErrorEntity | null
@@ -28,8 +27,45 @@ class CreateUserUseCaseResponse {
     }
 }
 
+class GetUserUseCaseRequest {
+    public user_id:string
+
+    constructor(user_id:string){
+        this.user_id = user_id
+    }
+}
+
+class GetUserUseCaseResponse {
+    public user: UserResponseEntity | null
+    public error: ErrorEntity | null
+
+    constructor(user: UserResponseEntity | null, error: ErrorEntity | null) {
+        this.user = user
+        this.error = error
+    }
+}
+
+class DeleteUserUseCaseRequest {
+    public user_id:string
+
+    constructor(user_id:string){
+        this.user_id = user_id;
+    }
+}
+class DeleteUserUseCaseResponse {
+    public error: ErrorEntity | null
+
+    constructor(error: ErrorEntity | null) {
+        this.error = error
+    }
+}
+
 export {
     CreateUserUseCaseRequest,
-    CreateUserUseCaseResponse
+    CreateUserUseCaseResponse,
+    GetUserUseCaseRequest,
+    GetUserUseCaseResponse,
+    DeleteUserUseCaseRequest,
+    DeleteUserUseCaseResponse
 }
 

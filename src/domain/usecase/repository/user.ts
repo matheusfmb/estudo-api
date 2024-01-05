@@ -1,9 +1,20 @@
 import { UserEntity } from "../../entity/user";
 
-interface CreateUserCaseRepositoryInterface {
+interface CreateUserUseCaseRepositoryInterface {
     createUser(e: UserEntity): Promise<UserEntity | null>
 }
 
+interface GetUserUseCaseRepositoryInterface{
+    getUser(user_id:string): Promise<UserEntity | null>
+
+}
+
+interface DeleteUserUseCaseRepositoryInterface {
+    DeleteUser(user_id:string): Promise<UserEntity | null>
+}
+
 export {
-    CreateUserCaseRepositoryInterface
+    CreateUserUseCaseRepositoryInterface,
+    GetUserUseCaseRepositoryInterface,
+    DeleteUserUseCaseRepositoryInterface
 }

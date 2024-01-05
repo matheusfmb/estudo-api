@@ -1,6 +1,5 @@
 import express from 'express'
 import http from 'http'
-import dotenv, { DotenvConfigOptions } from 'dotenv'
 import bodyParser from 'body-parser'
 import { PORT } from "../config/config"
 import { Router } from "../router"

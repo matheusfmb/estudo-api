@@ -1,7 +1,7 @@
 import { checkStringEmpty, checkNumberEmpty, checkDateEmpty } from "./validate"
-import { CreateUserUseCaseValidateInterface } from "../../../domain/usecase/validate/user"
-import { CreateUserUseCaseRequest } from "../../../domain/usecase/ucio/user"
-import { checkIfUserExistsByEmail } from "../../internal/database/postgresql/user"
+import { CreateUserUseCaseValidateInterface, DeleteUserCaseValidateInterface, GetUserUseCaseValidateInterface } from "../../../domain/usecase/validate/user"
+import { CreateUserUseCaseRequest, DeleteUserUseCaseRequest, GetUserUseCaseRequest } from "../../../domain/usecase/ucio/user"
+import { checkIfUserExistsByEmail, checkIfUserExistsByID } from "../../internal/database/postgresql/user"
 
 
 class CreateUserUseCaseValidate implements CreateUserUseCaseValidateInterface {
@@ -16,15 +16,20 @@ class CreateUserUseCaseValidate implements CreateUserUseCaseValidateInterface {
         }
 
         if (checkStringEmpty(req.email)) {
-            return 'O Sobrenome nome não deve ser vazio.'
+            return 'O Email não deve ser vazio.'
+        }
+
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(!regex.test(req.email)){
+            return "Email inválido"
         }
 
         if (checkStringEmpty(req.password)) {
-            return 'O Sobrenome nome não deve ser vazio.'
+            return 'O Senha nome não deve ser vazio.'
         }
 
         if (checkNumberEmpty(req.age)) {
-            return 'A conta não deve ser vazia.'
+            return 'A idade não deve ser vazia.'
         }
 
         const user  = await checkIfUserExistsByEmail(req.email)
@@ -37,6 +42,35 @@ class CreateUserUseCaseValidate implements CreateUserUseCaseValidateInterface {
 
 }
 
+class GetUserUseCaseValidate implements GetUserUseCaseValidateInterface{
+    async getUser(req: GetUserUseCaseRequest): Promise<string | null> {
+
+        if (checkStringEmpty(req.user_id)) {
+            return "O user_id  não deve ser vazio."
+        }
+
+        const user = await checkIfUserExistsByID(req.user_id)
+        if(user){
+            return 'Não existe recurso com o ID informado não existe'
+        }
+
+        return null
+    }
+
+}
+
+class DeleteUserUseCaseValidate implements DeleteUserCaseValidateInterface {
+    async deleteUser(req: DeleteUserUseCaseRequest): Promise<string | null> {
+        if (checkStringEmpty(req.user_id)) {
+            return "O user_id não deve ser vazio."
+        }
+
+        return null
+    }
+}
+
 export {
-    CreateUserUseCaseValidate
+    CreateUserUseCaseValidate,
+    GetUserUseCaseValidate,
+    DeleteUserUseCaseValidate
 }

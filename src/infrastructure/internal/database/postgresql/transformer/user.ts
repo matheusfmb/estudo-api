@@ -31,7 +31,23 @@ function toUserEntity(m: UserModel): UserEntity {
     )
 }
 
+function rowToUserEntity(row: any): UserEntity {
+    return new UserEntity(
+        row.user_id,
+        row.firstName,
+        row.lastName,
+        row.email,
+        row.password,
+        row.age,
+        row.createdAt,
+        row.updatedAt,
+        row.isActive,
+        row.isDeleted
+    )
+}
+
 export {
     toUserEntity,
-    toUserModel
+    toUserModel,
+    rowToUserEntity
 }
