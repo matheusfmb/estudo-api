@@ -1,7 +1,7 @@
 import { checkStringEmpty, checkNumberEmpty, checkDateEmpty } from "./validate"
 import { CreateUserUseCaseValidateInterface, DeleteUserCaseValidateInterface, GetUserUseCaseValidateInterface } from "../../../domain/usecase/validate/user"
 import { CreateUserUseCaseRequest, DeleteUserUseCaseRequest, GetUserUseCaseRequest } from "../../../domain/usecase/ucio/user"
-import { checkIfUserExistsByEmail, checkIfUserExistsByID } from "../../internal/database/postgresql/user"
+import { checkIfUserExistsByEmail, checkIfUserExistsByID, checkifUserIsAlreadyDeleted } from "../../internal/database/postgresql/user"
 
 
 class CreateUserUseCaseValidate implements CreateUserUseCaseValidateInterface {
@@ -51,18 +51,27 @@ class GetUserUseCaseValidate implements GetUserUseCaseValidateInterface{
 
         const user = await checkIfUserExistsByID(req.user_id)
         if(user){
-            return 'Não existe recurso com o ID informado não existe'
+            return 'Não existe recurso com o ID informado'
         }
 
         return null
     }
 
 }
-
 class DeleteUserUseCaseValidate implements DeleteUserCaseValidateInterface {
     async deleteUser(req: DeleteUserUseCaseRequest): Promise<string | null> {
         if (checkStringEmpty(req.user_id)) {
             return "O user_id não deve ser vazio."
+        }
+
+        const UserExists = await checkIfUserExistsByID(req.user_id)
+        if(!UserExists){
+            return 'Não existe recurso com o ID informado'
+        }
+
+        const user = await checkifUserIsAlreadyDeleted(req.user_id)
+        if(user){
+            return 'Usuário ja foi deletado'
         }
 
         return null
