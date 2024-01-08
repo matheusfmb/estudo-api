@@ -1,9 +1,9 @@
 import { CreateUserUseCaseCommonInterface } from "./common/user"
-import { CreateUserUseCaseValidateInterface, DeleteUserCaseValidateInterface, GetUserUseCaseValidateInterface } from "./validate/user"
-import { CreateUserUseCaseRepositoryInterface, DeleteUserUseCaseRepositoryInterface, GetUserUseCaseRepositoryInterface } from "./repository/user"
-import { CreateUserUseCaseRequest, CreateUserUseCaseResponse, DeleteUserUseCaseRequest, DeleteUserUseCaseResponse, GetUserUseCaseRequest, GetUserUseCaseResponse } from "./ucio/user"
+import { CreateUserUseCaseValidateInterface, DeleteUserCaseValidateInterface, GetUserUseCaseValidateInterface, UpdateUserPasswordUseCaseValidateInterface } from "./validate/user"
+import { CreateUserUseCaseRepositoryInterface, DeleteUserUseCaseRepositoryInterface, GetUserUseCaseRepositoryInterface,UpdateUserPasswordUseCaseRepositoryInterface } from "./repository/user"
+import { CreateUserUseCaseRequest, CreateUserUseCaseResponse, DeleteUserUseCaseRequest, DeleteUserUseCaseResponse, GetUserUseCaseRequest, GetUserUseCaseResponse, UpdateUserPasswordUseCaseRequest, UpdateUserPasswordUseCaseResponse } from "./ucio/user"
 import { ACTIVE, NOT_DELETED } from "../constants/utils"
-import { UserEntity, UserResponseEntity } from "../entity/user"
+import { UserEntity, UserResponseEntity, UserUpdatePasswordEntity } from "../entity/user"
 import { InternalServerError, PreconditionError, TAG_INTERNAL_SERVER_ERROR, TAG_PRE_CONDITION_ERROR } from "../entity/error"
 import { DeleteUserUseCaseRepository } from "../../infrastructure/provider/repository/user"
 
@@ -89,10 +89,41 @@ class DeleteUserUseCase {
     }
 }
 
+class UpdateUserPasswordUseCase {
+    public repository: UpdateUserPasswordUseCaseRepositoryInterface
+    public validate: UpdateUserPasswordUseCaseValidateInterface
+
+    constructor(repository: UpdateUserPasswordUseCaseRepositoryInterface,validate: UpdateUserPasswordUseCaseValidateInterface){
+        this.repository = repository;
+        this.validate = validate;
+    }
+
+    async updateUserPassword(req:UpdateUserPasswordUseCaseRequest): Promise<UpdateUserPasswordUseCaseResponse>{
+        try{
+            const messageError = await this.validate.updateUserPassword(req)
+            if(!messageError){
+                const now = new Date()
+                const userE = new UserUpdatePasswordEntity(req.user_id,req.password,now)
+                const user = await this.repository.updateUserPassword(userE)
+                return new UpdateUserPasswordUseCaseResponse(user,null)
+            }else{
+                console.log(TAG_PRE_CONDITION_ERROR, messageError)
+                return new UpdateUserPasswordUseCaseResponse(null, new PreconditionError(messageError))
+            }
+        }catch(error:any){
+            console.log(TAG_INTERNAL_SERVER_ERROR, error)
+            return new UpdateUserPasswordUseCaseResponse(null, new InternalServerError(error.message))
+        }
+    }
+
+}
+
 
 
 export {
     CreateUserUseCase,
     GetUserUseCase,
-    DeleteUserUseCase
+    DeleteUserUseCase,
+    UpdateUserPasswordUseCase
+
 }

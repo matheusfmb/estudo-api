@@ -59,6 +59,25 @@ class DeleteUserUseCaseResponse {
         this.error = error
     }
 }
+class UpdateUserPasswordUseCaseRequest {
+    public user_id:string
+    public password:string
+
+    constructor(user_id:string,password:string){
+        this.user_id = user_id;
+        this.password = password;
+    }
+}
+
+class UpdateUserPasswordUseCaseResponse{
+    public user: UserResponseEntity | null
+    public error: ErrorEntity | null
+
+    constructor(user: UserResponseEntity | null, error: ErrorEntity | null) {
+        this.user = user
+        this.error = error
+    }
+}
 
 export {
     CreateUserUseCaseRequest,
@@ -66,6 +85,9 @@ export {
     GetUserUseCaseRequest,
     GetUserUseCaseResponse,
     DeleteUserUseCaseRequest,
-    DeleteUserUseCaseResponse
+    DeleteUserUseCaseResponse,
+    UpdateUserPasswordUseCaseRequest,
+    UpdateUserPasswordUseCaseResponse
+
 }
 

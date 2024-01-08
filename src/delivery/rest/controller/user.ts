@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { SuccessResponse } from '../response/response'
-import { CreateUserUseCaseRequest, DeleteUserUseCaseRequest, GetUserUseCaseRequest } from '../../../domain/usecase/ucio/user'
+import { CreateUserUseCaseRequest, DeleteUserUseCaseRequest, GetUserUseCaseRequest, UpdateUserPasswordUseCaseRequest } from '../../../domain/usecase/ucio/user'
 import { CreateUserUseCaseCommon } from '../../../infrastructure/provider/common/user'
-import { CreateUserUseCaseValidate, DeleteUserUseCaseValidate, GetUserUseCaseValidate } from '../../../infrastructure/provider/validate/user'
-import { CreateUserUseCaseRepository, DeleteUserUseCaseRepository, GetUserUseCaseRepository } from '../../../infrastructure/provider/repository/user'
-import { CreateUserUseCase, DeleteUserUseCase, GetUserUseCase } from '../../../domain/usecase/user'
+import { CreateUserUseCaseValidate, DeleteUserUseCaseValidate, GetUserUseCaseValidate, UpdateUserPasswordUseCaseValidate } from '../../../infrastructure/provider/validate/user'
+import { CreateUserUseCaseRepository, DeleteUserUseCaseRepository, GetUserUseCaseRepository, UpdateUserPasswordUseCaseRepository } from '../../../infrastructure/provider/repository/user'
+import { CreateUserUseCase, DeleteUserUseCase, GetUserUseCase, UpdateUserPasswordUseCase } from '../../../domain/usecase/user'
 
 class CreateUserController {
     async teste(req: Request, res:Response): Promise<void> {
@@ -55,9 +55,24 @@ class DeleteUserController {
     }
 }
 
+class UpdateUserPasswordController{
+    async updateUserPassword(req: Request, res:Response):Promise<void>{
+        const {user_id , password} = req.body
+        const ucReq = new UpdateUserPasswordUseCaseRequest(user_id,password)
+        const validate = new UpdateUserPasswordUseCaseValidate()
+        const repository = new UpdateUserPasswordUseCaseRepository()
+        const usecase = new UpdateUserPasswordUseCase(repository,validate)
+        const ucRes = await usecase.updateUserPassword(ucReq)
+
+        new SuccessResponse().success(res,ucRes)
+    }
+}
+
 
 export {
     CreateUserController,
     GetUserController,
-    DeleteUserController 
+    DeleteUserController,
+    UpdateUserPasswordController
+
 }

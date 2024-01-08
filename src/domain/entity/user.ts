@@ -23,7 +23,17 @@ class UserEntity {
         this.isDeleted = isDeleted;
     }
 }
+class UserUpdatePasswordEntity{
+    public user_id: string
+    public password: string
+    public updatedAt: Date
 
+    constructor(user_id:string, password:string,updatedAt: Date){
+        this.user_id = user_id;
+        this.password = password
+        this.updatedAt = updatedAt
+    }
+}
 class UserResponseEntity {
     public user_id: string
     public firstName:string
@@ -51,7 +61,24 @@ class UserResponseEntity {
 
 }
 
+// class ListMyUsersEntity { 
+//     public user_id: string
+//     public firstName:string
+//     public lastName:string
+//     public email:string
+//     public age:number
+
+//     constructor(user_id:string, firstName:string, lastName:string, email:string, age:number){
+//         this.user_id = user_id;
+//         this.firstName = firstName;
+//         this.lastName = lastName;
+//         this.email = email;
+//         this.age = age;
+//     }
+// }
+
 export {
     UserEntity,
-    UserResponseEntity
+    UserResponseEntity,
+    UserUpdatePasswordEntity
 }

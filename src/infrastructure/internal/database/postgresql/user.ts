@@ -1,5 +1,5 @@
 import { DELETED, NOT_DELETED} from "../../../../domain/constants/utils"
-import { UserEntity } from "../../../../domain/entity/user"
+import { UserEntity, UserUpdatePasswordEntity } from "../../../../domain/entity/user"
 import { toUserModel, toUserEntity, rowToUserEntity } from "./transformer/user"
 import { Connection } from "./connection"
 import { UserModel } from "./model/user"
@@ -58,13 +58,30 @@ async function checkifUserIsAlreadyDeleted(user_id:string):Promise<boolean> {
     
 }
 
+async function updateUserPassword(e: UserUpdatePasswordEntity):Promise <UserEntity | null >{
+    const manager = await Connection.getManager()
+    const user = await manager.createQueryBuilder()
+    .update(UserModel)
+    .set({
+        password: e.password,
+        updatedAt: e.updatedAt
+    })
+    .where({ user_id: e.user_id})
+    .returning('*')
+    .execute()
+    const [row] = user.raw
+    return rowToUserEntity(row)
+
+}
+
 export {
     createUser,
     checkIfUserExistsByEmail,
     getUser,
     checkIfUserExistsByID,
     deleteUser,
-    checkifUserIsAlreadyDeleted
+    checkifUserIsAlreadyDeleted,
+    updateUserPassword
 }
 
 
