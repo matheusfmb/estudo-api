@@ -1,4 +1,4 @@
-import { CreateUserUseCaseCommonInterface} from "../../../domain/usecase/common/user" 
+import { CreateTaskUseCaseCommonInterface, CreateUserUseCaseCommonInterface} from "../../../domain/usecase/common/user" 
 import { generateUUID } from "../../internal/common/util"
 
 class CreateUserUseCaseCommon implements CreateUserUseCaseCommonInterface {
@@ -7,6 +7,14 @@ class CreateUserUseCaseCommon implements CreateUserUseCaseCommonInterface {
     }
 }
 
+class CreateTaskUseCaseCommon implements CreateTaskUseCaseCommonInterface {
+    generateUUID(): string {
+        return generateUUID()
+    }
+}
+
+
 export {
-    CreateUserUseCaseCommon
+    CreateUserUseCaseCommon,
+    CreateTaskUseCaseCommon 
 }

@@ -18,11 +18,11 @@ class CreateUserUseCaseRequest {
         
 }
 class CreateUserUseCaseResponse {
-    public app: UserEntity | null
+    public user: UserEntity | null
     public error: ErrorEntity | null
 
-    constructor(app: UserEntity | null, error: ErrorEntity | null) {
-        this.app = app
+    constructor(user: UserEntity | null, error: ErrorEntity | null) {
+        this.user = user
         this.error = error
     }
 }

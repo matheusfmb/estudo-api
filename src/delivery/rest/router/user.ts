@@ -1,7 +1,7 @@
 import express from 'express'
 import { Router } from 'express'
 import { CreateUserController, DeleteUserController, GetUserController, UpdateUserPasswordController } from '../controller/user'
-import { DeleteUserUseCase } from '../../../domain/usecase/user'
+
 
 class UserRouter {
     private router : Router

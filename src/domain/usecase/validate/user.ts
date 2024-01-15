@@ -14,7 +14,10 @@ interface DeleteUserCaseValidateInterface {
 
 interface UpdateUserPasswordUseCaseValidateInterface {
     updateUserPassword(req: UpdateUserPasswordUseCaseRequest): Promise<string | null>
+}
 
+interface UpdateUserPasswordUseCaseValidateInterface {
+    updateUserPassword(req: UpdateUserPasswordUseCaseRequest): Promise<string | null>
 }
 
 

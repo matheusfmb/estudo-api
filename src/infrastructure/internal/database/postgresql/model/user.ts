@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from "typeorm"
 
-@Entity({schema: 'user'})
+@Entity({schema: 'api', name:"user"})
 class UserModel {
     @PrimaryColumn({ name: 'user_id', type: 'uuid' })
     public user_id: string
